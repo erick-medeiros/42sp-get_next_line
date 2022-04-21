@@ -1,18 +1,25 @@
 NAME	= tests.out
 CC 		= cc
-CFLAGS	= -Wall -Wextra -Werror
-NORM	= norminette -R CheckForbiddenSourceHeader
+CFLAGS	= -Wall -Wextra -Werror -D BUFFER_SIZE=3
 RM		= rm -fr
-SRC		= get_next_line*
-MAIN	= tests.c
+INC		= .
+SRC		= get_next_line.c get_next_line_utils.c tests.c
+SRC_B	= get_next_line_bonus.c get_next_line_utils_bonus.c
+OBJ		= $(SRC:.c=.o)
+OBJ_B	= $(SRC_B:.c=.o)
 
-all: norm
-	$(CC) $(CFLAGS) $(MAIN) -o $(NAME)
+%.o: %.c
+	$(CC) $(CFLAGS) -I $(INC) -c $< -o $@
 
-norm:
-	$(NORM) $(SRC)
+$(NAME): $(OBJ)
+	$(CC) $(CFLAGS) -o $(NAME) $(OBJ)
+
+all: $(NAME)
 
 clean:
+	$(RM) $(OBJ) $(OBJ_B)
+
+fclean: clean
 	$(RM) $(NAME)
 
 re: clean all
