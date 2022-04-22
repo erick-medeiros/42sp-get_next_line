@@ -6,7 +6,7 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 16:15:28 by eandre-f          #+#    #+#             */
-/*   Updated: 2022/04/21 17:39:08 by eandre-f         ###   ########.fr       */
+/*   Updated: 2022/04/22 01:43:27 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@
 
 char	*ft_strdup(const char *s);
 char	*ft_strjoin(char const *s1, char const *s2);
+void	*ft_memcpy(void *dest, const void *src, size_t n);
+char	*ft_strchr(const char *s, int c);
 char	*get_next_line(int fd);
 
 #endif

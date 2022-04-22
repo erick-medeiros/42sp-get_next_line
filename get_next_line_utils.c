@@ -6,7 +6,7 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 03:43:33 by eandre-f          #+#    #+#             */
-/*   Updated: 2022/04/21 17:38:59 by eandre-f         ###   ########.fr       */
+/*   Updated: 2022/04/22 01:43:20 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,4 +64,43 @@ char	*ft_strdup(const char *s)
 	}
 	dup[i] = '\0';
 	return (dup);
+}
+
+void	*ft_memcpy(void *dest, const void *src, size_t n)
+{
+	size_t			i;
+	unsigned char	*dest_uc;
+	unsigned char	*src_uc;
+
+	if (dest == NULL && src == NULL)
+		return (NULL);
+	dest_uc = (unsigned char *)dest;
+	src_uc = (unsigned char *)src;
+	i = 0;
+	while (i < n)
+	{
+		dest_uc[i] = src_uc[i];
+		i++;
+	}
+	return (dest);
+}
+
+char	*ft_strchr(const char *s, int c)
+{
+	int		i;
+	char	caract;
+	char	*sc;
+
+	caract = (unsigned char) c;
+	sc = (char *)s;
+	i = 0;
+	while (sc[i] != '\0')
+	{
+		if (sc[i] == caract)
+			return (&sc[i]);
+		i++;
+	}
+	if (caract == '\0')
+		return (&sc[i]);
+	return (NULL);
 }
