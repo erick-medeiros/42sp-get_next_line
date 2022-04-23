@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   tests.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/04/23 18:55:14 by eandre-f          #+#    #+#             */
+/*   Updated: 2022/04/23 18:55:38 by eandre-f         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "get_next_line.h"
 #include <fcntl.h>
 #include <stdio.h>
@@ -5,11 +17,12 @@
 int	main(int argc, char *argv[])
 {
 	int		fd;
-	char	*file_path = "test";
+	char	*file_path;
 	char	*str;
 	int		lines;
 	int		max;
 
+	file_path = "test";
 	fd = open(file_path, O_RDWR);
 	if (fd < 0)
 		return (1);
@@ -21,9 +34,9 @@ int	main(int argc, char *argv[])
 	while (str != NULL && lines < max)
 	{
 		lines++;
-		printf("%s", str);
+		printf("%s\n", str);
 		str = get_next_line(fd);
 	}
-	printf("\nlines %i\n", lines);
+	printf("lines %i\n", lines);
 	return (0);
 }
