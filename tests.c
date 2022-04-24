@@ -6,7 +6,7 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/23 18:55:14 by eandre-f          #+#    #+#             */
-/*   Updated: 2022/04/23 18:55:38 by eandre-f         ###   ########.fr       */
+/*   Updated: 2022/04/24 18:32:38 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,9 @@
 
 int	main(int argc, char *argv[])
 {
-	int		fd;
 	char	*file_path;
 	char	*str;
+	int		fd;
 	int		lines;
 	int		max;
 
@@ -35,8 +35,10 @@ int	main(int argc, char *argv[])
 	{
 		lines++;
 		printf("%s\n", str);
+		free(str);
 		str = get_next_line(fd);
 	}
 	printf("lines %i\n", lines);
+	close(fd);
 	return (0);
 }
