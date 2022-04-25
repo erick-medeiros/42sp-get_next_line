@@ -6,11 +6,21 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 03:43:33 by eandre-f          #+#    #+#             */
-/*   Updated: 2022/04/23 18:53:33 by eandre-f         ###   ########.fr       */
+/*   Updated: 2022/04/25 04:38:10 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+
+size_t	ft_strlen(const char *s)
+{
+	size_t	i;
+
+	i = 0;
+	while (s[i] != '\0')
+		i++;
+	return (i);
+}
 
 char	*ft_strchr(const char *s, int c)
 {
@@ -41,8 +51,8 @@ char	*ft_strjoin(char const *s1, char const *s2)
 
 	if (s1 == NULL || s2 == NULL)
 		return (NULL);
-	ls1 = (size_t)(ft_strchr(s1, '\0') - s1);
-	ls2 = (size_t)(ft_strchr(s2, '\0') - s2);
+	ls1 = ft_strlen(s1);
+	ls2 = ft_strlen(s2);
 	s = (char *) malloc(sizeof(char) * (ls1 + ls2 + 1));
 	if (s == NULL)
 		return (NULL);
@@ -62,7 +72,7 @@ char	*ft_strdup(const char *s)
 	int		i;
 	int		size;
 
-	size = (int)(ft_strchr(s, '\0') - s);
+	size = ft_strlen(s);
 	dup = (char *) malloc(sizeof(char) * (size + 1));
 	if (dup == NULL)
 		return (NULL);
@@ -76,34 +86,16 @@ char	*ft_strdup(const char *s)
 	return (dup);
 }
 
-size_t	ft_strlcpy(char *dst, const char *src, size_t size)
-{
-	size_t	len_src;
-	size_t	i;
-
-	len_src = (size_t)(ft_strchr(src, '\0') - src);
-	if (size > 0)
-	{
-		i = 0;
-		while (i < size - 1 && src[i] != '\0')
-		{
-			dst[i] = src[i];
-			i++;
-		}
-		dst[i] = '\0';
-	}
-	return (len_src);
-}
-
 char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
 	char	*sub;
 	size_t	slen;
 	size_t	size;
+	size_t	i;
 
 	if (s == NULL)
 		return (NULL);
-	slen = (size_t)(ft_strchr(s, '\0') - s);
+	slen = ft_strlen(s);
 	if (start > slen)
 		return (ft_strdup(""));
 	if (slen - start > len)
@@ -113,6 +105,12 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	sub = (char *) malloc(sizeof(char) * size);
 	if (sub == NULL)
 		return (NULL);
-	ft_strlcpy(sub, (s + start), size);
+	i = 0;
+	while (i < size - 1 && (s + start)[i] != '\0')
+	{
+		sub[i] = (s + start)[i];
+		i++;
+	}
+	sub[i] = '\0';
 	return (sub);
 }
