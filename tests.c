@@ -6,7 +6,7 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/23 18:55:14 by eandre-f          #+#    #+#             */
-/*   Updated: 2022/04/25 02:01:54 by eandre-f         ###   ########.fr       */
+/*   Updated: 2022/04/25 05:10:54 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,12 @@ int	main(int argc, char *argv[])
 	check(8, fd, "0123456789012345678901234567890123456789\n");
 	check(9, fd, "0");
 	check(10, fd, NULL);
+	close(fd);
+	fd = open("./tests/test4", O_RDWR);
+	check(11, fd, "\n");
+	check(12, fd, "\n");
+	check(13, fd, "\n");
+	check(14, fd, NULL);
 	close(fd);
 	return (0);
 }

@@ -6,12 +6,11 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 16:20:36 by eandre-f          #+#    #+#             */
-/*   Updated: 2022/04/25 05:02:36 by eandre-f         ###   ########.fr       */
+/*   Updated: 2022/04/25 05:23:04 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-#include <stdio.h>
 
 void	update_aloc(char **aloc, char *new_aloc)
 {
@@ -22,60 +21,56 @@ void	update_aloc(char **aloc, char *new_aloc)
 	free(temp);
 }
 
-char	*get_line(char **accumulator)
+char	*get_line(char **acc)
 {
 	size_t	c;
-	size_t	len;
 	char	*s;
 
-	if (*accumulator == NULL)
+	if (*acc == NULL)
 		return (NULL);
-	c = (size_t)(ft_strchr(*accumulator, '\n') - *accumulator) + 1;
-	len = ft_strlen(*accumulator);
-	s = ft_substr(*accumulator, 0, c);
-	update_aloc(accumulator, ft_substr(*accumulator, c, len));
-	if (*accumulator[0] == '\0')
-		update_aloc(accumulator, NULL);
+	c = (size_t)(ft_strchr(*acc, '\n') - *acc) + 1;
+	s = ft_substr(*acc, 0, c);
+	update_aloc(acc, ft_substr(*acc, c, ft_strlen(*acc)));
+	if (*acc[0] == '\0')
+		update_aloc(acc, NULL);
 	return (s);
 }
 
-void	read_line(int fd, char **accumulator, char *buffer, int *read_bytes)
+void	read_line(int fd, char **acc, char *buffer, int *read_bytes)
 {
 	*read_bytes = read(fd, buffer, BUFFER_SIZE);
 	if (*read_bytes > 0)
 	{
-		if (*accumulator == NULL)
-			update_aloc(accumulator, ft_strdup(""));
+		if (*acc == NULL)
+			update_aloc(acc, ft_strdup(""));
 		buffer[*read_bytes] = '\0';
-		update_aloc(accumulator, ft_strjoin(*accumulator, buffer));
+		update_aloc(acc, ft_strjoin(*acc, buffer));
 		while (*read_bytes > 0 && ft_strchr(buffer, '\n') == NULL)
 		{
 			*read_bytes = read(fd, buffer, BUFFER_SIZE);
 			buffer[*read_bytes] = '\0';
-			update_aloc(accumulator, ft_strjoin(*accumulator, buffer));
+			update_aloc(acc, ft_strjoin(*acc, buffer));
 		}
 	}
 }
 
 char	*get_next_line(int fd)
 {
-	static char	*accumulator = NULL;
+	static char	*acc = NULL;
 	char		*buffer;
 	char		*line;
 	int			read_bytes;
 
 	if (fd < 0)
 	{
-		update_aloc(&accumulator, NULL);
+		update_aloc(&acc, NULL);
 		return (NULL);
 	}
 	buffer = (char *) malloc(sizeof(char) * (BUFFER_SIZE + 1));
 	if (buffer == NULL)
 		return (NULL);
-	read_line(fd, &accumulator, buffer, &read_bytes);
-	line = get_line(&accumulator);
-	if (read_bytes <= 0)
-		update_aloc(&accumulator, NULL);
+	read_line(fd, &acc, buffer, &read_bytes);
+	line = get_line(&acc);
 	free(buffer);
 	return (line);
 }
