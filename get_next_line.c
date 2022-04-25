@@ -6,7 +6,7 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 16:20:36 by eandre-f          #+#    #+#             */
-/*   Updated: 2022/04/24 18:34:33 by eandre-f         ###   ########.fr       */
+/*   Updated: 2022/04/25 02:23:08 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,12 @@ char	*get_line(char **accumulator)
 	int		c;
 	int		len;
 
-	c = (int)(ft_strchr(*accumulator, '\n') - *accumulator);
+	c = (int)(ft_strchr(*accumulator, '\n') - *accumulator) + 1;
 	len = (int)(ft_strchr(*accumulator, '\0') - *accumulator);
 	s = ft_substr(*accumulator, 0, c);
-	update_aloc(accumulator, ft_substr(*accumulator, c + 1, len));
+	update_aloc(accumulator, ft_substr(*accumulator, c, len));
+	if (*accumulator[0] == '\0')
+		update_aloc(accumulator, NULL);
 	return (s);
 }
 
@@ -49,15 +51,14 @@ char	*get_next_line(int fd)
 	buffer = (char *) malloc(sizeof(char) * (BUFFER_SIZE + 1));
 	if (buffer == NULL)
 		return (NULL);
-	if (accumulator == NULL)
-		update_aloc(&accumulator, ft_strdup(""));
 	read_bytes = read(fd, buffer, BUFFER_SIZE);
-	if (read_bytes <= 0)
+	if (read_bytes <= 0 && accumulator == NULL)
 	{
-		update_aloc(&accumulator, NULL);
 		free(buffer);
 		return (NULL);
 	}
+	if (accumulator == NULL)
+		update_aloc(&accumulator, ft_strdup(""));
 	buffer[read_bytes] = '\0';
 	update_aloc(&accumulator, ft_strjoin(accumulator, buffer));
 	while (read_bytes > 0 && ft_strchr(buffer, '\n') == NULL)
