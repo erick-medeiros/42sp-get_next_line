@@ -6,11 +6,11 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 05:47:41 by eandre-f          #+#    #+#             */
-/*   Updated: 2022/04/25 05:48:01 by eandre-f         ###   ########.fr       */
+/*   Updated: 2022/04/27 16:24:43 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 size_t	ft_strlen(const char *s)
 {
