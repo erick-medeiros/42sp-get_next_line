@@ -6,13 +6,13 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 16:20:36 by eandre-f          #+#    #+#             */
-/*   Updated: 2022/04/25 05:23:04 by eandre-f         ###   ########.fr       */
+/*   Updated: 2022/04/27 16:56:09 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-void	update_aloc(char **aloc, char *new_aloc)
+static void	update_aloc(char **aloc, char *new_aloc)
 {
 	char	*temp;
 
@@ -21,7 +21,7 @@ void	update_aloc(char **aloc, char *new_aloc)
 	free(temp);
 }
 
-char	*get_line(char **acc)
+static char	*get_line(char **acc)
 {
 	size_t	c;
 	char	*s;
@@ -36,7 +36,7 @@ char	*get_line(char **acc)
 	return (s);
 }
 
-void	read_line(int fd, char **acc, char *buffer, int *read_bytes)
+static void	read_line(int fd, char **acc, char *buffer, int *read_bytes)
 {
 	*read_bytes = read(fd, buffer, BUFFER_SIZE);
 	if (*read_bytes > 0)
@@ -66,6 +66,8 @@ char	*get_next_line(int fd)
 		update_aloc(&acc, NULL);
 		return (NULL);
 	}
+	if (BUFFER_SIZE <= 0)
+		return (NULL);
 	buffer = (char *) malloc(sizeof(char) * (BUFFER_SIZE + 1));
 	if (buffer == NULL)
 		return (NULL);

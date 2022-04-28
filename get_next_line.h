@@ -6,20 +6,15 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 16:15:28 by eandre-f          #+#    #+#             */
-/*   Updated: 2022/04/25 04:24:59 by eandre-f         ###   ########.fr       */
+/*   Updated: 2022/04/26 05:14:50 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
 
-# include <stddef.h>
 # include <stdlib.h>
 # include <unistd.h>
-
-# ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 3
-# endif
 
 size_t	ft_strlen(const char *s);
 char	*ft_strdup(const char *s);
