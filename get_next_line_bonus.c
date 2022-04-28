@@ -6,13 +6,13 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 05:47:35 by eandre-f          #+#    #+#             */
-/*   Updated: 2022/04/25 05:48:20 by eandre-f         ###   ########.fr       */
+/*   Updated: 2022/04/28 06:27:59 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
-void	update_aloc(char **aloc, char *new_aloc)
+static void	update_aloc(char **aloc, char *new_aloc)
 {
 	char	*temp;
 
@@ -21,7 +21,7 @@ void	update_aloc(char **aloc, char *new_aloc)
 	free(temp);
 }
 
-char	*get_line(char **acc)
+static char	*get_line(char **acc)
 {
 	size_t	c;
 	char	*s;
@@ -36,7 +36,7 @@ char	*get_line(char **acc)
 	return (s);
 }
 
-void	read_line(int fd, char **acc, char *buffer, int *read_bytes)
+static void	read_line(int fd, char **acc, char *buffer, int *read_bytes)
 {
 	*read_bytes = read(fd, buffer, BUFFER_SIZE);
 	if (*read_bytes > 0)
@@ -54,23 +54,22 @@ void	read_line(int fd, char **acc, char *buffer, int *read_bytes)
 	}
 }
 
+//sysconf(_SC_OPEN_MAX)
+
 char	*get_next_line(int fd)
 {
-	static char	*acc = NULL;
+	static char	*fd_acc[4000000];
 	char		*buffer;
 	char		*line;
 	int			read_bytes;
 
-	if (fd < 0)
-	{
-		update_aloc(&acc, NULL);
+	if (fd < 0 || fd > 4000000 || BUFFER_SIZE <= 0)
 		return (NULL);
-	}
 	buffer = (char *) malloc(sizeof(char) * (BUFFER_SIZE + 1));
 	if (buffer == NULL)
 		return (NULL);
-	read_line(fd, &acc, buffer, &read_bytes);
-	line = get_line(&acc);
+	read_line(fd, &fd_acc[fd], buffer, &read_bytes);
+	line = get_line(&fd_acc[fd]);
 	free(buffer);
 	return (line);
 }
