@@ -21,6 +21,10 @@ It will define the buffer size for read().
 
 Works with a single file descriptor at a time
 
+#### Files
+
+- `get_next_line.c` `get_next_line_utils.c` `get_next_line.h`
+
 #### Tests
 
 ```
@@ -29,7 +33,11 @@ make m
 
 ### Bonus
 
-Works with multiple file descriptor at a time
+Works with multiple file descriptors at the same time
+
+#### Files
+
+- `get_next_line_bonus.c` `get_next_line_bonus.h` `get_next_line_utils_bonus.c`
 
 #### Tests
 
